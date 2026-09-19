@@ -39,6 +39,12 @@ function wrapFmt(fmt: IntlFormatMethod) {
 	};
 }
 
+export function listFmt(title: string, items: string[]) {
+	const header = `${title}: (${items.length})`;
+	const list = `${['', ...items].join('\n- ')}`;
+	return `${header}${list}`;
+}
+
 export const numFmt = wrapFmt(numFormatter.format);
 export const pctFmt = wrapFmt(pctFormatter.format);
 export const hourFmt = wrapFmt(hourFormatter.format);

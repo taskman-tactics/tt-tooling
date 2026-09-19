@@ -24,10 +24,6 @@
 			},
 			"performance": {
 				"noAwaitInLoops": "off"
-			},
-			"style": {
-				// noUncheckedIndexedAccess is unusable with this
-				"noNonNullAssertion": "off"
 			}
 		}
 	},

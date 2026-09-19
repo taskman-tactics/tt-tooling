@@ -1,117 +1,129 @@
-/** biome-ignore-all lint/style/useForOf: using regular for loops is 3x faster */
+/** biome-ignore-all lint/style/useForOf: regular for loops are 3x faster */
+/** biome-ignore-all lint/style/noNonNullAssertion: regular for loops with `noUncheckedIndexedAccess` is hard */
 
-import stdev from '@stdlib/stats-base-stdev';
-import { Table } from 'console-table-printer';
-import { min, sum, title } from 'radashi';
-import type { NonEmptyTuple } from 'type-fest';
-import yargsParser from 'yargs-parser';
-import { rollDice, rollDiceMin } from '@/dice.mts';
-import { type Activity, VAMPYRIUM } from '@/territories.mts';
-import { execFmt, hourFmt, numFmt, pctFmt } from '@/util.mts';
+import { stripIndents } from 'common-tags';
+import { flat } from 'radashi';
+import { rollDice } from '@/dice.mts';
+import type {
+	PreppedActivity,
+	PreppedAttack,
+	PreppedTask,
+	PreppedTerritory,
+} from '@/preparation.mts';
+import { hourFmt, listFmt } from '@/util.mts';
 
-const argv = yargsParser(process.argv.slice(2));
+const MAX_SIMULATION_KC = 1e5;
 
-const DEFAULT_SAMPLE_SIZE = 1e3;
-const SAMPLE_SIZE = argv.samples ?? DEFAULT_SAMPLE_SIZE;
-
-type Capture = {
+export type Capture = {
 	killCount: number;
-	attacks: NonEmptyTuple<string>;
+	attacks: string[];
 };
 
-type SimulationResult = {
-	activity: Activity;
+export type SimulationContext = {
+	defenceLeft: number;
+	attacks: string[];
+};
+
+export type SimulationResult = {
+	activity: PreppedActivity;
 	captures: Capture[];
 };
 
-const territory = VAMPYRIUM;
-const simulations: Record<string, SimulationResult> = {};
-for (const [activityName, activity] of Object.entries(territory.activities)) {
-	const captures: Capture[] = [];
+export function simulateCapture(territory: PreppedTerritory, activity: PreppedActivity): Capture {
+	const ctx: SimulationContext = {
+		defenceLeft: territory.baseDefence,
+		attacks: [],
+	};
 
-	for (let _ = 0; _ < SAMPLE_SIZE; _++) {
-		let defenceLeft = territory.baseDefence;
-		const attacks: string[] = [];
-		const tasks = Object.entries(activity.tasks);
+	for (let kc = 1; kc < MAX_SIMULATION_KC; kc++) {
+		if (simulateKill(activity.tasks, ctx)) {
+			return {
+				killCount: kc,
+				attacks: ctx.attacks,
+			};
+		}
+	}
 
-		captureLoop: for (let kc = 1; ; kc++) {
-			for (let i = 0; i < tasks.length; i++) {
-				const [taskName, task] = tasks[i]!;
-				let dropRoll = Math.random();
-				if (dropRoll <= task.dropRate) {
-					for (let rollNo = 0; rollNo < task.rolls.length; rollNo++) {
-						const roll = task.rolls[rollNo]!;
-						const attackName = task.rolls.length === 1 ? taskName : `${taskName}.${rollNo + 1}`;
-						const dmgRoll = rollDice(roll);
+	throw new Error(stripIndents`
+		Simulation exceeded ${MAX_SIMULATION_KC} KC.
+		Territory: ${territory.name}
+		Defence: ${ctx.defenceLeft} / ${territory.baseDefence}
+		Time: ${hourFmt(MAX_SIMULATION_KC / activity.kph)}
+		Activity: ${activity.name}
+		${listFmt(
+			'Tasks',
+			flat(Object.values(activity.tasks)).map((t) => `${t.name} (${t.table})`)
+		)}
+		${listFmt('Attacks', ctx.attacks)}`);
+}
 
-						if (dmgRoll.total >= defenceLeft) {
-							captures.push({
-								killCount: kc,
-								attacks: [attackName, ...attacks],
-							});
-							break captureLoop;
-						}
+function simulateKill(tasks: PreppedActivity['tasks'], ctx: SimulationContext) {
+	const preDrop = simulateTable(tasks.pre, ctx);
+	if (wasCaptured(ctx)) {
+		return true;
+	}
 
-						attacks.push(attackName);
-						defenceLeft -= rollDiceMin(roll);
-					}
+	if (!preDrop && simulateTable(tasks.main, ctx) && wasCaptured(ctx)) {
+		return true;
+	}
 
-					// TODO: handle pre, main and tertiary tables separately (3 loops)
-					break;
-				}
+	simulateTable(tasks.tertiary, ctx, true);
 
-				dropRoll -= task.dropRate;
+	return wasCaptured(ctx);
+}
+
+function simulateTable(tasks: PreppedTask[], ctx: SimulationContext, isTertiary = false): boolean {
+	let anyDrop = false;
+
+	for (let i = 0; i < tasks.length; i++) {
+		const task = tasks[i]!;
+
+		if (simulateDrop(task, ctx)) {
+			anyDrop = true;
+
+			if (!isTertiary) {
+				break;
+			}
+
+			if (wasCaptured(ctx)) {
+				break;
 			}
 		}
 	}
 
-	simulations[activityName] = {
-		activity,
-		captures,
-	};
+	return anyDrop;
 }
 
-const results = new Table({
-	title: `${territory.name} (${territory.baseDefence} def)`,
-	columns: [
-		{ name: 'activityName', title: 'Activity', transform: (v) => title(String(v)) },
-		{ name: 'avgKillCount', title: 'Avg. KC', transform: numFmt },
-		{ name: 'avgAttacks', title: 'Avg. Attacks', transform: numFmt },
-		{ name: 'captureTime', title: 'Avg. Capture', transform: hourFmt },
-		{ name: 'captureVariance', title: 'Variance', transform: numFmt },
-	],
-	sort: (rowA, rowB) => rowA.captureTime - rowB.captureTime,
-	computedColumns: [
-		{
-			name: 'efficiency',
-			title: 'Efficiency',
-			function(currentRow, _, rows) {
-				return min(rows, (row) => row.captureTime)?.captureTime / currentRow.captureTime;
-			},
-			transform: pctFmt,
-		},
-	],
-});
+function simulateDrop(task: PreppedTask, ctx: SimulationContext): boolean {
+	const dropRoll = Math.random();
+	if (dropRoll <= task.dropRate) {
+		for (let j = 0; j < task.attacks.length; j++) {
+			const attack = task.attacks[j]!;
 
-for (const [activityName, simulation] of Object.entries(simulations)) {
-	const killCountArray = simulation.captures.map((c) => c.killCount);
-	const killCountSum = sum(killCountArray);
-	const avgKillCount = killCountSum / simulation.captures.length;
-	const attacksSum = sum(simulation.captures, (cap) => cap.attacks.length);
-	const avgAttacks = attacksSum / simulation.captures.length;
-	const captureTime = avgKillCount / simulation.activity.kph;
-	const captureVariance = stdev(killCountArray.length, 0, killCountArray, 1) / avgKillCount;
+			if (simulateAttack(attack, ctx)) {
+				break;
+			}
+		}
 
-	results.addRow({
-		activityName,
-		avgKillCount,
-		avgAttacks,
-		captureTime,
-		captureVariance,
-	});
+		return true;
+	}
+
+	return false;
 }
 
-results.printTable();
+function simulateAttack(attack: PreppedAttack, ctx: SimulationContext): boolean {
+	ctx.attacks.push(attack.name);
 
-console.log(`SAMPLES: ${SAMPLE_SIZE}`);
-console.log(`EXECUTION TIME: ${execFmt(performance.now())}`);
+	const dmgRoll = rollDice(attack.dice);
+	if (dmgRoll.total >= ctx.defenceLeft) {
+		ctx.defenceLeft -= dmgRoll.total;
+		return true;
+	}
+
+	ctx.defenceLeft -= attack.minRoll;
+	return false;
+}
+
+function wasCaptured(ctx: SimulationContext) {
+	return ctx.defenceLeft <= 0;
+}
