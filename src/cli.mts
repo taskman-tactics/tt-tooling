@@ -4,19 +4,38 @@ import { min, sum } from 'radashi';
 import yargsParser from 'yargs-parser';
 import { prepareTerritory } from '@/preparation.mts';
 import { type Capture, type SimulationResult, simulateCapture } from '@/simulation.mts';
-import { ALL } from '@/territories.mts';
+import { ALL as TERRITORIES } from '@/territories.mts';
 import { execFmt, hourFmt, numFmt, pctFmt } from '@/util.mts';
 
-const argv = yargsParser(process.argv.slice(2));
-
 const DEFAULT_SAMPLE_SIZE = 1e4;
-const SIMULATION_SAMPLES: number = argv.samples ?? DEFAULT_SAMPLE_SIZE;
+const DEFAULT_TERRITORY = 'VAMPYRIUM';
 
-const simTerritory = prepareTerritory(ALL.VAMPYRIUM);
+const argv = yargsParser(process.argv.slice(2), {
+	alias: {
+		samples: ['s'],
+		territory: ['t'],
+	},
+	default: {
+		samples: DEFAULT_SAMPLE_SIZE,
+		territory: DEFAULT_TERRITORY,
+	},
+	coerce: {
+		territory: (t: string) => t.toUpperCase(),
+	},
+});
+
+const samples = argv.samples;
+const territory = TERRITORIES[argv.territory];
+if (!territory) {
+	console.error(`Territory ${argv.territory} not found!`);
+	process.exit(1);
+}
+
+const simTerritory = prepareTerritory(territory);
 const simulations: Record<string, SimulationResult> = {};
 for (const activity of simTerritory.activities) {
 	const captures: Capture[] = [];
-	for (let _ = 0; _ < SIMULATION_SAMPLES; _++) {
+	for (let _ = 0; _ < samples; _++) {
 		captures.push(simulateCapture(simTerritory, activity));
 	}
 
@@ -68,5 +87,5 @@ for (const [activityName, simulation] of Object.entries(simulations)) {
 
 results.printTable();
 
-console.log(`SAMPLES: ${SIMULATION_SAMPLES}`);
+console.log(`SAMPLES: ${samples}`);
 console.log(`EXECUTION TIME: ${execFmt(performance.now())}`);

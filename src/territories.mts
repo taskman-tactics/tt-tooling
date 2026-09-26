@@ -81,7 +81,7 @@ export const DARKMEYER: Territory = {
 	},
 };
 
-export const ALL = {
+export const ALL: Record<string, Territory> = {
 	VAMPYRIUM,
 	DARKMEYER,
 };
