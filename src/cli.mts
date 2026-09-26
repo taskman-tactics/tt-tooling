@@ -4,16 +4,15 @@ import { min, sum } from 'radashi';
 import yargsParser from 'yargs-parser';
 import { prepareTerritory } from '@/preparation.mts';
 import { type Capture, type SimulationResult, simulateCapture } from '@/simulation.mts';
-import { VAMPYRIUM } from '@/territories.mts';
+import { ALL } from '@/territories.mts';
 import { execFmt, hourFmt, numFmt, pctFmt } from '@/util.mts';
 
 const argv = yargsParser(process.argv.slice(2));
 
-const DEFAULT_SAMPLE_SIZE = 1e3;
+const DEFAULT_SAMPLE_SIZE = 1e4;
+const SIMULATION_SAMPLES: number = argv.samples ?? DEFAULT_SAMPLE_SIZE;
 
-const SIMULATION_SAMPLES = argv.samples ?? DEFAULT_SAMPLE_SIZE;
-
-const simTerritory = prepareTerritory(VAMPYRIUM);
+const simTerritory = prepareTerritory(ALL.VAMPYRIUM);
 const simulations: Record<string, SimulationResult> = {};
 for (const activity of simTerritory.activities) {
 	const captures: Capture[] = [];

@@ -7,7 +7,8 @@
 	},
 	"scripts": {
 		"format": "ultracite format",
-		"lint": "ultracite lint"
+		"lint": "ultracite lint",
+		"sim": "bun run src/cli.mts"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.2.6",

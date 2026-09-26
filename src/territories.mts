@@ -63,6 +63,25 @@ export const VAMPYRIUM: Territory = {
 	},
 };
 
+export const DARKMEYER: Territory = {
+	name: 'Darkmeyer',
+	baseDefence: 7,
+	maxDefence: 12,
+	activities: {
+		hallowedSepulchre: {
+			kph: 6.5,
+			tasks: {
+				ringOfEndurance: {
+					dropRate: 1 / 200,
+					attacks: ['4d6'],
+					table: 'main',
+				},
+			},
+		},
+	},
+};
+
 export const ALL = {
 	VAMPYRIUM,
+	DARKMEYER,
 };
