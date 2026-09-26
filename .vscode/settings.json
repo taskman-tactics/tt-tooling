@@ -1,0 +1,36 @@
+{
+	"files.eol": "\n",
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"[typescript]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[javascript]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[json]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[jsonc]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"js/ts.tsdk.path": "node_modules/typescript/lib",
+	"editor.formatOnSave": true,
+	"editor.formatOnPaste": false,
+	"emmet.showExpandedAbbreviation": "never",
+	"editor.codeActionsOnSave": {
+		"source.fixAll.biome": "explicit",
+		"source.organizeImports.biome": "explicit"
+	},
+	"files.associations": {
+		"package.json": "jsonc",
+		"bun.lock": "jsonc"
+	},
+	"json.schemas": [
+		{
+			"fileMatch": ["package.json", "bun.lock"],
+			"schema": {
+				"allowTrailingCommas": true
+			}
+		}
+	]
+}

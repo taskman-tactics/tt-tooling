@@ -1,0 +1,40 @@
+{
+	"$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+	"extends": ["ultracite"],
+	"files": {
+		"includes": ["**", "!bun.lock"]
+	},
+	"formatter": {
+		"indentStyle": "tab",
+		"lineWidth": 100
+	},
+	"json": {
+		"formatter": {
+			"indentStyle": "tab",
+			"lineWidth": 100
+		}
+	},
+	"linter": {
+		"rules": {
+			"suspicious": {
+				"noConsole": "off"
+			},
+			"nursery": {
+				"noUselessUndefined": "off"
+			},
+			"performance": {
+				"noAwaitInLoops": "off"
+			},
+			"style": {
+				// noUncheckedIndexedAccess is unusable with this
+				"noNonNullAssertion": "off"
+			}
+		}
+	},
+	"javascript": {
+		"globals": ["Bun", "Temporal"],
+		"formatter": {
+			"quoteStyle": "single"
+		}
+	}
+}
