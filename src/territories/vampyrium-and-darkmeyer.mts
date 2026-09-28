@@ -1,27 +1,7 @@
-/** biome-ignore-all lint/style/noMagicNumbers: droprates are magic numbers */
+import type { Territory } from '@t/_all.mjs';
 
-import type { NonEmptyTuple } from 'type-fest';
-
-export type Task = {
-	dropRate: number;
-	attacks: NonEmptyTuple<string>;
-	table: 'main' | 'pre' | 'tertiary';
-};
-
-export type Activity = {
-	kph: number;
-	tasks: Record<string, Task>;
-};
-
-export type Territory = {
-	name: string;
-	baseDefence: number;
-	maxDefence: number;
-	activities: Record<string, Activity>;
-};
-
-export const VAMPYRIUM: Territory = {
-	name: 'Vampyrium',
+export default {
+	name: 'Vampyrium & Darkmeyer',
 	baseDefence: 7,
 	maxDefence: 12,
 	activities: {
@@ -60,14 +40,6 @@ export const VAMPYRIUM: Territory = {
 				},
 			},
 		},
-	},
-};
-
-export const DARKMEYER: Territory = {
-	name: 'Darkmeyer',
-	baseDefence: 7,
-	maxDefence: 12,
-	activities: {
 		hallowedSepulchre: {
 			kph: 6.5,
 			tasks: {
@@ -79,9 +51,4 @@ export const DARKMEYER: Territory = {
 			},
 		},
 	},
-};
-
-export const ALL: Record<string, Territory> = {
-	VAMPYRIUM,
-	DARKMEYER,
-};
+} as Territory satisfies Territory;

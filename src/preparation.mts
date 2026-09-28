@@ -1,12 +1,15 @@
 import { title } from 'radashi';
 import type { Merge } from 'type-fest';
 import { rollDiceMin } from './dice.mts';
-import type { Activity, Task, Territory } from './territories.mts';
+import type { Activity, AttackStrategy, Task, Territory } from '@t/_all.mjs';
+
+const DEFAULT_MAX_SIMULATION_KC = 1e5;
 
 export type PreppedAttack = {
 	name: string;
 	dice: string;
 	minRoll: number;
+	strategy: AttackStrategy;
 };
 
 export type PreppedTask = Merge<
@@ -21,6 +24,7 @@ export type PreppedActivity = Merge<
 	Activity,
 	{
 		name: string;
+		maxSimulationKC: number;
 		tasks: Record<Task['table'], PreppedTask[]>;
 	}
 >;
@@ -38,6 +42,7 @@ function prepareActivities(activities: Territory['activities']): PreppedTerritor
 	return Object.entries(activities).map(([activityName, activity]) => ({
 		...activity,
 		name: title(activityName),
+		maxSimulationKC: activity.maxSimulationKC ?? DEFAULT_MAX_SIMULATION_KC,
 		tasks: prepareTasks(activity.tasks),
 	}));
 }
@@ -46,7 +51,7 @@ function prepareTasks(tasks: Activity['tasks']): PreppedActivity['tasks'] {
 	const preparedTasks = Object.entries(tasks).map(([taskName, task]) => ({
 		...task,
 		name: title(taskName),
-		attacks: prepareAttacks(task.attacks, taskName),
+		attacks: prepareAttacks(task.attacks, task, taskName),
 	}));
 
 	return {
@@ -56,10 +61,11 @@ function prepareTasks(tasks: Activity['tasks']): PreppedActivity['tasks'] {
 	};
 }
 
-function prepareAttacks(attacks: Task['attacks'], taskName: string): PreppedTask['attacks'] {
+function prepareAttacks(attacks: Task['attacks'], task: Task, taskName: string): PreppedTask['attacks'] {
 	return attacks.map((attackDice, i) => ({
 		name: attacks.length === 1 ? taskName : `${taskName}[${i + 1}]`,
 		dice: attackDice,
 		minRoll: rollDiceMin(attackDice),
+		strategy: task.strategy ?? 'normal'
 	}));
 }

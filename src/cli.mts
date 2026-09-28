@@ -1,14 +1,14 @@
 import stdev from '@stdlib/stats-base-stdev';
 import { Table } from 'console-table-printer';
-import { min, sum } from 'radashi';
+import { min, snake, sum } from 'radashi';
 import yargsParser from 'yargs-parser';
 import { prepareTerritory } from '@/preparation.mts';
 import { type Capture, type SimulationResult, simulateCapture } from '@/simulation.mts';
-import { ALL as TERRITORIES } from '@/territories.mts';
+import TERRITORIES from '@/territories/_all.mjs';
 import { execFmt, hourFmt, numFmt, pctFmt } from '@/util.mts';
 
 const DEFAULT_SAMPLE_SIZE = 1e4;
-const DEFAULT_TERRITORY = 'VAMPYRIUM';
+const DEFAULT_TERRITORY = 'VAMPYRIUM-AND-DARKMEYER';
 
 const argv = yargsParser(process.argv.slice(2), {
 	alias: {
@@ -18,9 +18,10 @@ const argv = yargsParser(process.argv.slice(2), {
 	default: {
 		samples: DEFAULT_SAMPLE_SIZE,
 		territory: DEFAULT_TERRITORY,
+		debug: false,
 	},
 	coerce: {
-		territory: (t: string) => t.toUpperCase(),
+		territory: (t: string) => snake(t).toUpperCase(),
 	},
 });
 

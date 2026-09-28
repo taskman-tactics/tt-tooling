@@ -12,8 +12,6 @@ import type {
 } from '@/preparation.mts';
 import { hourFmt, listFmt } from '@/util.mts';
 
-const MAX_SIMULATION_KC = 1e5;
-
 export type Capture = {
 	killCount: number;
 	attacks: string[];
@@ -35,7 +33,7 @@ export function simulateCapture(territory: PreppedTerritory, activity: PreppedAc
 		attacks: [],
 	};
 
-	for (let kc = 1; kc < MAX_SIMULATION_KC; kc++) {
+	for (let kc = 1; kc < activity.maxSimulationKC; kc++) {
 		if (simulateKill(activity.tasks, ctx)) {
 			return {
 				killCount: kc,
@@ -45,10 +43,10 @@ export function simulateCapture(territory: PreppedTerritory, activity: PreppedAc
 	}
 
 	throw new Error(stripIndents`
-		Simulation exceeded ${MAX_SIMULATION_KC} KC.
+		Simulation exceeded ${activity.maxSimulationKC} KC.
 		Territory: ${territory.name}
 		Defence: ${ctx.defenceLeft} / ${territory.baseDefence}
-		Time: ${hourFmt(MAX_SIMULATION_KC / activity.kph)}
+		Time: ${hourFmt(activity.maxSimulationKC / activity.kph)}
 		Activity: ${activity.name}
 		${listFmt(
 			'Tasks',
@@ -120,7 +118,18 @@ function simulateAttack(attack: PreppedAttack, ctx: SimulationContext): boolean 
 		return true;
 	}
 
-	ctx.defenceLeft -= attack.minRoll;
+	switch (attack.strategy) {
+		case 'normal':
+			ctx.defenceLeft -= Math.max(0, attack.minRoll);
+			break;
+		case 'machine-gun':
+			ctx.defenceLeft -= Math.max(0, dmgRoll.total);
+			break;
+
+		default:
+      		const exhaustiveCheck: never = attack.strategy;
+	}
+
 	return false;
 }
 

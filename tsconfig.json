@@ -4,9 +4,10 @@
 	"compilerOptions": {
 		"strictNullChecks": true,
 		"paths": {
-			"@/*": ["./src/*"]
+			"@/*": ["./src/*"],
+			"@t/*": ["./src/territories/*"]
 		},
 		"typeRoots": ["./node_modules/@types", "./node_modules/@stdlib/types"]
 	},
-	"include": ["./src/*.mts"]
+	"include": ["./src/**/*.mts"]
 }
