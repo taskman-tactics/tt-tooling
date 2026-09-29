@@ -126,8 +126,9 @@ function simulateAttack(attack: PreppedAttack, ctx: SimulationContext): boolean 
 			ctx.defenceLeft -= Math.max(0, dmgRoll.total);
 			break;
 
-		default:
-      		const exhaustiveCheck: never = attack.strategy;
+		default: {
+			const _exhaustiveCheck: never = attack.strategy;
+		}
 	}
 
 	return false;

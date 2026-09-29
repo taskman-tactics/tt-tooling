@@ -32,5 +32,18 @@
 		"formatter": {
 			"quoteStyle": "single"
 		}
-	}
+	},
+	"overrides": [
+		{
+			"includes": ["src/territories/**", "!src/territories/_*"],
+			"linter": {
+				"rules": {
+					"style": {
+						// drop rates are magic numbers
+						"noMagicNumbers": "off"
+					}
+				}
+			}
+		}
+	]
 }

@@ -13,7 +13,7 @@ export default {
 					dropRate: 1 / 33,
 					attacks: ['1d2-1'],
 					table: 'tertiary',
-				}
+				},
 			},
 		},
 		oborsChest: {
@@ -23,7 +23,7 @@ export default {
 					dropRate: 1 / 118,
 					attacks: ['1d10+1'],
 					table: 'main',
-				}
+				},
 			},
 		},
 		bryophytasChest: {
@@ -33,7 +33,7 @@ export default {
 					dropRate: 1 / 118,
 					attacks: ['2d6+2'],
 					table: 'main',
-				}
+				},
 			},
 		},
 		// TODO: champion scroll

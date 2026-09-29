@@ -1,24 +1,22 @@
-/** biome-ignore-all lint/style/noMagicNumbers: droprates are magic numbers */
-
 import type { NonEmptyTuple } from 'type-fest';
 
-import VAMPYRIUM_AND_DARKMEYER from '@/territories/vampyrium-and-darkmeyer.mjs';
-import GRAVEWATER from '@/territories/gravewater.mts';
-import VER_SINHAZA from '@/territories/ver-sinhaza.mts';
-import BARROWS from '@/territories/barrows.mts';
-import PADDEWWA from '@/territories/paddewwa.mts';
-import LASSAR from '@/territories/lassar.mts';
+import ANNAKARL from '@/territories/annakarl.mts';
 import ASGARNIA_MAJOR from '@/territories/asgarnia-major.mts';
-import THE_ABYSS from '@/territories/the-abyss.mts';
+import BARROWS from '@/territories/barrows.mts';
+import BLEAKWATER from '@/territories/bleakwater.mts';
+import CARRALLANGER from '@/territories/carrallanger.mts';
+import DAREEYAK from '@/territories/dareeyak.mts';
+import GHORROCK_DUNGEON from '@/territories/ghorrock-dungeon.mts';
+import GRAVEWATER from '@/territories/gravewater.mts';
 import JALTEVAS_PYRAMID from '@/territories/jaltevas-pyramid.mts';
 import KHARIDIAN_DESERT from '@/territories/kharidian-desert.mts';
 import KHARYLL from '@/territories/kharyll.mts';
-import GHORROCK_DUNGEON from '@/territories/ghorrock-dungeon.mts';
-import DAREEYAK from '@/territories/dareeyak.mts';
+import LASSAR from '@/territories/lassar.mts';
 import OLD_GHORROCK from '@/territories/old-ghorrock.mts';
-import ANNAKARL from '@/territories/annakarl.mts';
-import BLEAKWATER from '@/territories/bleakwater.mts';
-import CARRALLANGER from '@/territories/carrallanger.mts';
+import PADDEWWA from '@/territories/paddewwa.mts';
+import THE_ABYSS from '@/territories/the-abyss.mts';
+import VAMPYRIUM_AND_DARKMEYER from '@/territories/vampyrium-and-darkmeyer.mjs';
+import VER_SINHAZA from '@/territories/ver-sinhaza.mts';
 
 export type AttackStrategy = 'normal' | 'machine-gun';
 
@@ -43,21 +41,21 @@ export type Territory = {
 };
 
 export default {
-	VAMPYRIUM_AND_DARKMEYER,
-	GRAVEWATER,
-	VER_SINHAZA,
-	BARROWS,
-	PADDEWWA,
-	LASSAR,
+	ANNAKARL,
 	ASGARNIA_MAJOR,
-	THE_ABYSS,
+	BARROWS,
+	BLEAKWATER,
+	CARRALLANGER,
+	DAREEYAK,
+	GHORROCK_DUNGEON,
+	GRAVEWATER,
 	JALTEVAS_PYRAMID,
 	KHARIDIAN_DESERT,
 	KHARYLL,
-	GHORROCK_DUNGEON,
-	DAREEYAK,
+	LASSAR,
 	OLD_GHORROCK,
-	ANNAKARL,
-	BLEAKWATER,
-	CARRALLANGER,
+	PADDEWWA,
+	THE_ABYSS,
+	VAMPYRIUM_AND_DARKMEYER,
+	VER_SINHAZA,
 } as Record<string, Territory> satisfies Record<string, Territory>;

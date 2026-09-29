@@ -1,10 +1,12 @@
 import type { Territory } from '@t/_all.mjs';
+import REVENANTS from '@t/revenants.mts';
 
 export default {
 	name: 'Old Ghorrock',
 	baseDefence: 6,
 	maxDefence: 9,
 	activities: {
+		...REVENANTS,
 		kingBlackDragon: {
 			kph: 75,
 			tasks: {

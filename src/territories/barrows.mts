@@ -4,12 +4,12 @@ import type { NonEmptyTuple } from 'type-fest';
 function brotherTasks(brother: string, weaponRolls: NonEmptyTuple<string>): Record<string, Task> {
 	return {
 		[`${brother}sArmor`]: {
-			dropRate: 3 * 7 / (2448),
+			dropRate: (3 * 7) / 2448,
 			attacks: ['1d4'],
 			table: 'tertiary',
 		},
 		[`${brother}sWeapon`]: {
-			dropRate: 7 / (2448),
+			dropRate: 7 / 2448,
 			attacks: weaponRolls,
 			table: 'tertiary',
 		},

@@ -1,4 +1,4 @@
-import { type DieGroup, roll, type RollContext } from 'opendice';
+import { type DieGroup, roll } from 'opendice';
 import { sum } from 'radashi';
 import type { MapValue } from '@/util.mts';
 

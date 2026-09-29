@@ -101,9 +101,9 @@ export default {
 				championScroll: {
 					dropRate: 1 / 5000,
 					attacks: ['1d2+1'],
-					table: 'tertiary'
-				}
-			}
+					table: 'tertiary',
+				},
+			},
 		},
 		shadesOfMortton: {
 			kph: 375, // keys/h based on 2.7 eff elite clues/h from gold keys at 1/139
@@ -112,9 +112,9 @@ export default {
 					strategy: 'machine-gun',
 					dropRate: 1 / 60,
 					attacks: ['1d2-1'],
-					table: 'main'
-				}
-			}
-		}
+					table: 'main',
+				},
+			},
+		},
 	},
 } as Territory satisfies Territory;

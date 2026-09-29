@@ -1,10 +1,12 @@
 import type { Territory } from '@t/_all.mjs';
+import REVENANTS from '@t/revenants.mts';
 
 export default {
 	name: 'Annakarl',
 	baseDefence: 6,
 	maxDefence: 9,
 	activities: {
+		...REVENANTS,
 		callisto: {
 			kph: 100,
 			tasks: {
@@ -65,7 +67,7 @@ export default {
 			maxSimulationKC: 1e7,
 			tasks: {
 				eternalGlory: {
-					dropRate: 1 / 25000,
+					dropRate: 1 / 25_000,
 					attacks: ['2d20'],
 					table: 'tertiary',
 				},

@@ -63,7 +63,7 @@ export default {
 					attacks: ['1d6+1'],
 					table: 'tertiary',
 				},
-			}
-		}
+			},
+		},
 	},
 } as Territory satisfies Territory;

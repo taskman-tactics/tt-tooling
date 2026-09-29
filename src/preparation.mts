@@ -1,7 +1,7 @@
+import type { Activity, AttackStrategy, Task, Territory } from '@t/_all.mjs';
 import { title } from 'radashi';
 import type { Merge } from 'type-fest';
 import { rollDiceMin } from './dice.mts';
-import type { Activity, AttackStrategy, Task, Territory } from '@t/_all.mjs';
 
 const DEFAULT_MAX_SIMULATION_KC = 1e5;
 
@@ -61,11 +61,15 @@ function prepareTasks(tasks: Activity['tasks']): PreppedActivity['tasks'] {
 	};
 }
 
-function prepareAttacks(attacks: Task['attacks'], task: Task, taskName: string): PreppedTask['attacks'] {
+function prepareAttacks(
+	attacks: Task['attacks'],
+	task: Task,
+	taskName: string
+): PreppedTask['attacks'] {
 	return attacks.map((attackDice, i) => ({
 		name: attacks.length === 1 ? taskName : `${taskName}[${i + 1}]`,
 		dice: attackDice,
 		minRoll: rollDiceMin(attackDice),
-		strategy: task.strategy ?? 'normal'
+		strategy: task.strategy ?? 'normal',
 	}));
 }
