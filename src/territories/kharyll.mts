@@ -109,8 +109,9 @@ export default {
 			kph: 375, // keys/h based on 2.7 eff elite clues/h from gold keys at 1/139
 			tasks: {
 				anyLock: {
+					strategy: 'machine-gun',
 					dropRate: 1 / 60,
-					attacks: ['1d2'],
+					attacks: ['1d2-1'],
 					table: 'main'
 				}
 			}
