@@ -35,7 +35,7 @@ export default {
 				},
 			},
 		},
-		venenatis: {
+		spindel: {
 			kph: 60,
 			tasks: {
 				voidwakerGem: {
