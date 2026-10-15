@@ -14,7 +14,7 @@ export default {
 					table: 'main',
 				},
 				noxiousHalberdPiece: {
-					dropRate: 3 / 200,
+					dropRate: 1 / 200,
 					attacks: ['1d8'],
 					table: 'main',
 				},
