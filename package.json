@@ -6,7 +6,7 @@
 		}
 	},
 	"scripts": {
-		"format": "ultracite format",
+		"format": "bun x ultracite fix",
 		"lint": "ultracite lint",
 		"sim": "bun run src/cli.mts"
 	},
