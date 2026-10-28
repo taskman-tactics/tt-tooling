@@ -21,5 +21,6 @@ export function rollDiceMin(formula: string): number {
 }
 
 function rollGroupMin(group: DieGroup) {
-	return group.sign * group.kept.length * group.multiplier;
+	const minFace = group.sign === 1 ? 1 : -group.sides;
+	return minFace * group.kept.length * group.multiplier;
 }
