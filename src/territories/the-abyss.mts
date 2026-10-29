@@ -3,47 +3,57 @@ import type { Territory } from '@t/_all.mjs';
 export default {
 	name: 'The Abyss',
 	baseDefence: 7,
-	maxDefence: 12,
+	maxDefence: 10,
 	activities: {
 		abyssalSire: {
-			kph: 44,
+			kph: 31,
 			tasks: {
 				unsired: {
 					dropRate: 1 / 100,
 					attacks: ['1d8'],
 					table: 'pre',
-				},
+				}
 			},
 		},
-		leviathan: {
+		theLeviathan: {
 			kph: 27,
 			tasks: {
+				'awakener\'sOrb': {
+					dropRate: 1 / 53.6,
+					attacks: ['1d4'],
+					table: 'main',
+				},
 				chromiumIngot: {
 					dropRate: 1 / 256,
-					attacks: ['1d10+1'],
+					attacks: ['1d6'],
 					table: 'main',
 				},
-				venatorVestigePart: {
-					dropRate: 1 / 256,
-					attacks: ['1d10+1'],
+				venatorVestige: {
+					dropRate: 3 / 768,
+					attacks: ['1d6'],
 					table: 'main',
 				},
-				leviathansLure: {
+				'leviathan\'sLure': {
 					dropRate: 1 / 768,
-					attacks: ['2d8+1'],
+					attacks: ['1d10+1'],
 					table: 'main',
 				},
-				virtusPiece: {
-					dropRate: 3 / 2304,
-					attacks: ['2d8+1'],
+				virtusMask: {
+					dropRate: 1 / 2304,
+					attacks: ['1d10+1'],
 					table: 'main',
 				},
-				awakenersOrb: {
-					dropRate: 1 / 53.6,
-					attacks: ['2d4-1'],
+				virtusRobeTop: {
+					dropRate: 1 / 2304,
+					attacks: ['1d10+1'],
 					table: 'main',
 				},
+				virtusRobeBottom: {
+					dropRate: 1 / 2304,
+					attacks: ['1d10+1'],
+					table: 'main',
+				}
 			},
-		},
+		}
 	},
 } as Territory satisfies Territory;

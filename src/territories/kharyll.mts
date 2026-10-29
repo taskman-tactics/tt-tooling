@@ -2,20 +2,22 @@ import type { Territory } from '@t/_all.mjs';
 
 export default {
 	name: 'Kharyll',
-	baseDefence: 4,
-	maxDefence: 6,
+	baseDefence: 6,
+	maxDefence: 9,
 	activities: {
 		infernalMages: {
 			kph: 400,
 			tasks: {
 				mysticHatDark: {
+					strategy: 'machine-gun',
 					dropRate: 1 / 512,
-					attacks: ['1d3'],
+					attacks: ['1d2-1'],
 					table: 'pre',
 				},
 				mysticBootsDark: {
+					strategy: 'machine-gun',
 					dropRate: 1 / 512,
-					attacks: ['1d3'],
+					attacks: ['1d2-1'],
 					table: 'pre',
 				},
 			},
@@ -23,14 +25,10 @@ export default {
 		gargoyles: {
 			kph: 300,
 			tasks: {
-				graniteMaul: {
-					dropRate: 0, // 1 / 256
-					attacks: ['1d2'],
-					table: 'pre',
-				},
 				mysticRobeTopDark: {
+					strategy: 'machine-gun',
 					dropRate: 1 / 512,
-					attacks: ['1d3'],
+					attacks: ['1d2-1'],
 					table: 'pre',
 				},
 			},
@@ -39,8 +37,9 @@ export default {
 			kph: 250,
 			tasks: {
 				mysticRobeBottomDark: {
+					strategy: 'machine-gun',
 					dropRate: 1 / 512,
-					attacks: ['1d3'],
+					attacks: ['1d2-1'],
 					table: 'pre',
 				},
 			},
@@ -49,48 +48,34 @@ export default {
 			kph: 600,
 			tasks: {
 				mysticGlovesDark: {
+					strategy: 'machine-gun',
 					dropRate: 1 / 512,
-					attacks: ['1d3'],
+					attacks: ['1d2-1'],
 					table: 'pre',
 				},
 			},
 		},
-		abyssalDemon: {
-			kph: 600,
-			tasks: {
-				abyssalWhip: {
-					dropRate: 1 / 512,
-					attacks: ['1d2'],
-					table: 'main',
-				},
-			},
-		},
 		grotesqueGuardians: {
-			kph: 34,
+			kph: 22,
 			tasks: {
-				graniteMaul: {
-					dropRate: 0, // 2 / 250
-					attacks: ['1d2'],
-					table: 'main',
-				},
 				graniteGloves: {
 					dropRate: 2 / 500,
-					attacks: ['1d4+1'],
+					attacks: ['2d4-1'],
 					table: 'main',
 				},
 				graniteRing: {
 					dropRate: 2 / 500,
-					attacks: ['1d4+1'],
+					attacks: ['2d4-1'],
 					table: 'main',
 				},
 				graniteHammer: {
 					dropRate: 2 / 750,
-					attacks: ['2d4'],
+					attacks: ['2d4+1'],
 					table: 'main',
 				},
 				blackTourmalineCore: {
 					dropRate: 2 / 1000,
-					attacks: ['2d4'],
+					attacks: ['2d4+1'],
 					table: 'main',
 				},
 			},
@@ -102,17 +87,6 @@ export default {
 					dropRate: 1 / 5000,
 					attacks: ['1d2+1'],
 					table: 'tertiary',
-				},
-			},
-		},
-		shadesOfMortton: {
-			kph: 375, // keys/h based on 2.7 eff elite clues/h from gold keys at 1/139
-			tasks: {
-				anyLock: {
-					strategy: 'machine-gun',
-					dropRate: 1 / 60,
-					attacks: ['1d2-1'],
-					table: 'main',
 				},
 			},
 		},

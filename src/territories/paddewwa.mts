@@ -3,39 +3,38 @@ import type { Territory } from '@t/_all.mjs';
 export default {
 	name: 'Paddewwa',
 	baseDefence: 6,
-	maxDefence: 12,
+	maxDefence: 9,
 	activities: {
 		scurrius: {
 			kph: 60,
 			tasks: {
-				scurriusSpine: {
+				'scurrius\'Spine': {
 					strategy: 'machine-gun',
 					dropRate: 1 / 33,
 					attacks: ['1d2-1'],
 					table: 'tertiary',
-				},
+				}
 			},
 		},
-		oborsChest: {
+		obor: {
 			kph: 12,
 			tasks: {
 				hillGiantClub: {
 					dropRate: 1 / 118,
-					attacks: ['1d10+1'],
+					attacks: ['1d12+1'],
 					table: 'main',
-				},
+				}
 			},
 		},
-		bryophytasChest: {
+		bryophyta: {
 			kph: 9,
 			tasks: {
-				bryophytasEssence: {
+				'byrophyta\'sEssence': {
 					dropRate: 1 / 118,
-					attacks: ['2d6+2'],
+					attacks: ['2d8+2'],
 					table: 'main',
-				},
+				}
 			},
-		},
-		// TODO: champion scroll
+		}
 	},
 } as Territory satisfies Territory;

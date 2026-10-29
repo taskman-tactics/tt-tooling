@@ -2,11 +2,11 @@ import type { Territory } from '@t/_all.mjs';
 
 export default {
 	name: 'Kharidian Desert',
-	baseDefence: 5,
-	maxDefence: 8,
+	baseDefence: 7,
+	maxDefence: 10,
 	activities: {
-		temporossSolo: {
-			kph: 90, // permits, not actual KC
+		tempoross: {
+			kph: 90,
 			tasks: {
 				fishBarrel: {
 					dropRate: 1 / 400,
@@ -18,16 +18,21 @@ export default {
 					attacks: ['1d2'],
 					table: 'main',
 				},
-				bigHarpoonfish: {
-					dropRate: 1 / 1600,
-					attacks: ['2d4'],
-					table: 'main',
-				},
 				tomeOfWater: {
 					dropRate: 1 / 1600,
 					attacks: ['2d4'],
 					table: 'main',
 				},
+				bigHarpoonfish: {
+					dropRate: 1 / 1600,
+					attacks: ['2d4'],
+					table: 'main',
+				},
+/* 				'25xSoakedPages': {
+					dropRate: 1 / 200,
+					attacks: ['1d2'],
+					table: 'main',
+				} */
 			},
 		},
 		kalphiteQueen: {
@@ -38,7 +43,12 @@ export default {
 					attacks: ['1d2'],
 					table: 'tertiary',
 				},
-				dragonTwoHandedSword: {
+				kQHead: {
+					dropRate: 1 / 128,
+					attacks: ['1d6'],
+					table: 'tertiary',
+				},
+				dragon2HSword: {
 					dropRate: 1 / 256,
 					attacks: ['1d2'],
 					table: 'tertiary',
@@ -47,23 +57,18 @@ export default {
 					dropRate: 1 / 400,
 					attacks: ['1d2'],
 					table: 'tertiary',
-				},
-				kqHead: {
-					dropRate: 1 / 128,
-					attacks: ['1d6'],
-					table: 'tertiary',
-				},
+				}
 			},
 		},
 		pyramidPlunder: {
 			kph: 20,
 			tasks: {
-				pharaosSceptre: {
+				'pharaoh\'sSceptre': {
 					dropRate: 1 / 69,
 					attacks: ['1d6+1'],
 					table: 'tertiary',
-				},
+				}
 			},
-		},
+		}
 	},
 } as Territory satisfies Territory;

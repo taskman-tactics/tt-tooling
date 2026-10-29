@@ -1,43 +1,49 @@
 import type { Territory } from '@t/_all.mjs';
 
-const TEAM_SIZE = 4;
-const PURPLE_CHANCE = 1 / 9.1;
-const OWN_PURPLE_CHANCE = PURPLE_CHANCE / TEAM_SIZE;
-
 export default {
 	name: 'Ver Sinhaza',
 	baseDefence: 12,
 	maxDefence: 18,
 	activities: {
-		theaterOfBloodNormal: {
+		theatreOfBlood: {
 			kph: 3,
 			tasks: {
-				avernicDefender: {
-					dropRate: OWN_PURPLE_CHANCE / 2.375,
+				avernicDefenderHilt: {
+					dropRate: 1 / 23.75,
 					attacks: ['1d10+2'],
-					table: 'pre',
+					table: 'main',
 				},
-				ghraziRapier: {
-					dropRate: OWN_PURPLE_CHANCE / 9.5,
+				justicarFaceguard: {
+					dropRate: 1 / 95.4,
 					attacks: ['2d8+1'],
-					table: 'pre',
+					table: 'main',
 				},
 				sanguinestiStaff: {
-					dropRate: OWN_PURPLE_CHANCE / 9.5,
-					attacks: ['2d8+1'],
-					table: 'pre',
-				},
-				justiciarPiece: {
-					dropRate: (3 * OWN_PURPLE_CHANCE) / 9.5,
-					attacks: ['2d8+1'],
-					table: 'pre',
+					dropRate: 1 / 95,
+					attacks: ['2d10+2'],
+					table: 'main',
 				},
 				scytheOfVitur: {
-					dropRate: OWN_PURPLE_CHANCE / 19,
+					dropRate: 1 / 190,
 					attacks: ['9d4'],
-					table: 'pre',
+					table: 'main',
 				},
+				justicarChestguard: {
+					dropRate: 1 / 95.4,
+					attacks: ['2d8+1'],
+					table: 'main',
+				},
+				justicarLegguards: {
+					dropRate: 1 / 95.4,
+					attacks: ['2d8+1'],
+					table: 'main',
+				},
+				ghraziRapier: {
+					dropRate: 1 / 95,
+					attacks: ['2d10+2'],
+					table: 'main',
+				}
 			},
-		},
+		}
 	},
 } as Territory satisfies Territory;

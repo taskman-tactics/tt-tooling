@@ -1,13 +1,41 @@
 import type { Territory } from '@t/_all.mjs';
-import REVENANTS from '@t/revenants.mts';
 
 export default {
 	name: 'Bleakwater',
 	baseDefence: 6,
 	maxDefence: 9,
 	activities: {
-		...REVENANTS,
-		vetion: {
+		revenants: {
+			kph: 120,
+			tasks: {
+				amuletOfAvarice: {
+					dropRate: 1 / 1613,
+					attacks: ['2d4'],
+					table: 'main',
+				},
+				'craw\'sBow': {
+					dropRate: 1 / 3225,
+					attacks: ['1d6+1'],
+					table: 'main',
+				},
+				ancientStatuette: {
+					dropRate: 1 / 484,
+					attacks: ['1d4'],
+					table: 'main',
+				},
+				'thammaron\'sSceptre': {
+					dropRate: 1 / 3225,
+					attacks: ['1d6+1'],
+					table: 'main',
+				},
+				'viggora\'sChainmace': {
+					dropRate: 1 / 3225,
+					attacks: ['1d6+1'],
+					table: 'main',
+				}
+			},
+		},
+		'vet\'ion': {
 			kph: 40,
 			tasks: {
 				voidwakerBlade: {
@@ -15,7 +43,12 @@ export default {
 					attacks: ['3d6+3'],
 					table: 'main',
 				},
-				dragonTwoHandedSword: {
+				'skullOfVet\'ion': {
+					dropRate: 1 / 196,
+					attacks: ['1d4'],
+					table: 'main',
+				},
+				dragon2hSword: {
 					dropRate: 1 / 256,
 					attacks: ['1d6+1'],
 					table: 'main',
@@ -25,16 +58,11 @@ export default {
 					attacks: ['1d6+1'],
 					table: 'main',
 				},
-				skullOfVetion: {
-					dropRate: 1 / 196,
-					attacks: ['1d6+1'],
-					table: 'main',
-				},
 				ringOfTheGods: {
 					dropRate: 1 / 512,
-					attacks: ['1d6+1'],
+					attacks: ['1d8+1'],
 					table: 'main',
-				},
+				}
 			},
 		},
 		venenatis: {
@@ -45,7 +73,12 @@ export default {
 					attacks: ['3d6+3'],
 					table: 'main',
 				},
-				dragonTwoHandedSword: {
+				fangsOfVenenatis: {
+					dropRate: 1 / 196,
+					attacks: ['1d4'],
+					table: 'main',
+				},
+				dragon2hSword: {
 					dropRate: 1 / 256,
 					attacks: ['1d6+1'],
 					table: 'main',
@@ -55,18 +88,12 @@ export default {
 					attacks: ['1d6+1'],
 					table: 'main',
 				},
-				fangsOfVenenatis: {
-					dropRate: 1 / 196,
-					attacks: ['1d6+1'],
-					table: 'main',
-				},
 				treasonousRing: {
 					dropRate: 1 / 512,
-					attacks: ['1d6+1'],
+					attacks: ['1d8+1'],
 					table: 'main',
-				},
+				}
 			},
-		},
-		// did not include teleport anchoring scroll as keys are buyable, meaning the drop would cost 4.2m
+		}
 	},
 } as Territory satisfies Territory;

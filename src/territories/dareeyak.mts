@@ -1,12 +1,40 @@
 import type { Territory } from '@t/_all.mjs';
-import REVENANTS from '@t/revenants.mts';
 
 export default {
 	name: 'Dareeyak',
 	baseDefence: 6,
 	maxDefence: 9,
 	activities: {
-		...REVENANTS,
+		revenants: {
+			kph: 120,
+			tasks: {
+				amuletOfAvarice: {
+					dropRate: 1 / 1613,
+					attacks: ['2d6'],
+					table: 'main',
+				},
+				'craw\'sBow': {
+					dropRate: 1 / 3225,
+					attacks: ['1d8+1'],
+					table: 'main',
+				},
+				ancientStatuette: {
+					dropRate: 1 / 484,
+					attacks: ['1d4'],
+					table: 'main',
+				},
+				'thammaron\'sSceptre': {
+					dropRate: 1 / 3225,
+					attacks: ['1d8+1'],
+					table: 'main',
+				},
+				'viggora\'sChainmace': {
+					dropRate: 1 / 3225,
+					attacks: ['1d8+1'],
+					table: 'main',
+				}
+			},
+		},
 		artio: {
 			kph: 50,
 			tasks: {
@@ -15,7 +43,7 @@ export default {
 					attacks: ['2d6+4'],
 					table: 'main',
 				},
-				dragonTwoHandedSword: {
+				dragon2hSword: {
 					dropRate: 1 / 358,
 					attacks: ['1d4'],
 					table: 'main',
@@ -27,46 +55,30 @@ export default {
 				},
 				clawsOfCallisto: {
 					dropRate: 1 / 618,
-					attacks: ['1d4'],
+					attacks: ['1d6'],
 					table: 'main',
 				},
 				tyrannicalRing: {
 					dropRate: 1 / 716,
-					attacks: ['1d4'],
+					attacks: ['1d8'],
 					table: 'main',
-				},
+				}
 			},
 		},
 		crazyArchaeologist: {
 			kph: 95,
 			tasks: {
-				odiumShard2: {
-					dropRate: 1 / 256,
-					attacks: ['1d2'],
-					table: 'pre',
-				},
 				maledictionShard2: {
 					dropRate: 1 / 256,
 					attacks: ['1d2'],
 					table: 'pre',
 				},
-				fedora: {
-					dropRate: 0, // 1 / 128
+				odiumShard2: {
+					dropRate: 1 / 256,
 					attacks: ['1d2'],
-					table: 'tertiary',
-				},
+					table: 'pre',
+				}
 			},
-		},
-		wildernessGodWarsDungeon: {
-			kph: 200, // completely pulled out of my ass, but doubt it'd be less if doing it efficiently
-			tasks: {
-				ecumenicalKey: {
-					strategy: 'machine-gun',
-					dropRate: 1 / 45, // asumes master CAs
-					attacks: ['1d3-2'],
-					table: 'tertiary',
-				},
-			},
-		},
+		}
 	},
 } as Territory satisfies Territory;

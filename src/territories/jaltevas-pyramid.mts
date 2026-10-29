@@ -1,43 +1,49 @@
 import type { Territory } from '@t/_all.mjs';
 
-const TEAM_SIZE = 4;
-const PURPLE_CHANCE = 0.15;
-const OWN_PURPLE_CHANCE = PURPLE_CHANCE / TEAM_SIZE;
-
 export default {
 	name: 'Jaltevas Pyramid',
 	baseDefence: 12,
 	maxDefence: 18,
 	activities: {
-		tombsOfAmascust400: {
-			kph: 60 / 25,
+		tombsOfAmascut: {
+			kph: 36,
 			tasks: {
 				lightbearer: {
-					dropRate: OWN_PURPLE_CHANCE / 3.8,
+					dropRate: 1 / 343,
 					attacks: ['2d6'],
-					table: 'pre',
+					table: 'main',
 				},
-				osmumtensFang: {
-					dropRate: OWN_PURPLE_CHANCE / 4.75,
-					attacks: ['2d6'],
-					table: 'pre',
-				},
-				masoriPiece: {
-					dropRate: (3 * OWN_PURPLE_CHANCE) / 9.5,
+				masoriMask: {
+					dropRate: 1 / 1200,
 					attacks: ['2d8+1'],
-					table: 'pre',
+					table: 'main',
 				},
 				elidinisWard: {
-					dropRate: OWN_PURPLE_CHANCE / 6.33,
+					dropRate: 1 / 800,
 					attacks: ['4d6'],
-					table: 'pre',
+					table: 'main',
 				},
-				tumekensShadow: {
-					dropRate: OWN_PURPLE_CHANCE / 19,
+				'tumeken\'sShadow': {
+					dropRate: 1 / 2400,
 					attacks: ['9d4'],
-					table: 'pre',
+					table: 'main',
 				},
+				'osmumten\'sFang': {
+					dropRate: 1 / 343,
+					attacks: ['2d6'],
+					table: 'main',
+				},
+				masoriBody: {
+					dropRate: 1 / 1200,
+					attacks: ['2d8+1'],
+					table: 'main',
+				},
+				masoriChaps: {
+					dropRate: 1 / 1200,
+					attacks: ['2d8+1'],
+					table: 'main',
+				}
 			},
-		},
+		}
 	},
 } as Territory satisfies Territory;
